@@ -1,0 +1,37 @@
+.login {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  text-align: center;
+}
+
+.login a {
+  text-decoration: none;
+  color: white;
+}
+
+.login h1 {
+  font-size: 5rem;
+}
+
+.login .button {
+  background-color: #663a82;
+  width: 200px;
+  align-self: center;
+  margin: 50px 0;
+}
+
+.login .button:hover {
+  background-color: #7c5295;
+}
+
+.login > * {
+  position: relative;
+  top: -100px;
+}
