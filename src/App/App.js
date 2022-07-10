@@ -7,21 +7,20 @@ import Login from "../Login/Login";
 import "./App.css";
 
 function App() {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   useEffect(() => setToken(Musify.getAccessToken()), []);
 
   return (
     <Fragment>
-      {token ? (
+      {token && (
         <div className="App">
           <h1>Welcome to Musify!!!</h1>
           <SearchBar token={token} />
           <MediaPlayer />
           <Playlist />
         </div>
-      ) : (
-        <Login />
       )}
+      {!token && <Login />}
     </Fragment>
   );
 }
