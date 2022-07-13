@@ -16,7 +16,6 @@ function Track(props) {
       <div
         className="track-container"
         onClick={(event) => {
-          console.log(event.target.animVal);
           if (event.target.className === "block") return;
           handleTracks(track);
         }}
@@ -35,8 +34,13 @@ function Track(props) {
         <p>{track.album.name}</p>
         <p>{runtime(track.duration_ms)}</p>
         <div className="remove-btn">
-          <div className="block" onClick={() => removeTrack(idx)}></div>
-          <RemoveCircleOutlineIcon sx={{ margin: `auto 0` }} />
+          <RemoveCircleOutlineIcon
+            onClick={(event) => {
+              removeTrack(idx);
+              event.stopPropagation();
+            }}
+            sx={{ margin: `auto 0` }}
+          />
         </div>
       </div>
     </Stack>

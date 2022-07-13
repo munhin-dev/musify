@@ -15,8 +15,8 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
   const [progress, setProgress] = useState(0);
   const renderCount = useRef(0);
 
-  const artwork = album?.images[0].url;
-  const artist = (artists || [])[0]?.name;
+  let artwork = album?.images[0].url;
+  let artist = (artists || [])[0]?.name;
 
   useEffect(() => {
     setAudio(new Audio(url));
@@ -52,12 +52,15 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
   const handleCommit = () => (audio.muted = false);
 
   if (!url) {
-    return <div></div>;
+    url = "https://p.scdn.co/mp3-preview/562e8ed1dc5bf6235895b06904358e1472bfe41c?cid=9868d45c684c48c197e1ec8bf128367f";
+    artist = "John Legend";
+    name = "All of Me";
+    artwork = "https://i.scdn.co/image/ab67616d0000b27394c9217a398f5174757c0c78";
   }
 
   return (
     <div className="media-player">
-      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", border: 1 }}>
         <CardMedia component="img" sx={{ width: 128, height: 128 }} image={artwork} />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography component="div" variant="h6" sx={{ my: 1 }}>
@@ -66,7 +69,7 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
           <Typography variant="subtitle1" color="text.secondary" component="div">
             {artist}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", mt: 1, mx:1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", mt: 1, mx: 1 }}>
             <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38 }} /> : <PlayArrowIcon sx={{ height: 38, width: 38 }} />}</IconButton>
             <Slider size="small" color="secondary" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450 }} />
           </Box>
