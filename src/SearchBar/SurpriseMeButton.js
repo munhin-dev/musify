@@ -42,7 +42,7 @@ function handleClick(onHandleSearch){
   let randomArtistLimit = Math.floor(Math.random() *  5 + 1)
   let randomTrackLimit = 5 - randomArtistLimit
   let userRecommendation = getUserRecommendation(randomArtistLimit, randomTrackLimit)
-  userRecommendation.then((response) => onHandleSearch(response))
+  userRecommendation.then((response) => onHandleSearch(response.filter(track => track.preview_url !== null)))
 }
 
 export default function SearchButton({onHandleSearch}) {
