@@ -42,11 +42,14 @@
   margin: 0;
   font-size: 1em;
   text-align: left;
+  color: white;
 }
 
 p {
   margin: auto 0;
   text-align: left;
+  color: rgb(183, 183, 183);
+  font-size: 0.8em;
 }
 
 .track-container span {

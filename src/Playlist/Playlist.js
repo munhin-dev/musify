@@ -114,7 +114,7 @@ function Playlist(props) {
           <h4>#</h4>
           <h4>TITLE</h4>
           <h4>ALBUM</h4>
-          <AccessTimeIcon />
+          <AccessTimeIcon style ={{color: 'white'}}/>
         </div>
         <div className="track-list">
           {searchResult.map((track, idx) => (

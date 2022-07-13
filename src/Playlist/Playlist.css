@@ -17,15 +17,15 @@
 
 input {
   width: 100%;
-  padding: 0;
+  padding: 5px;
   font-size: 1.5em;
   font-weight: bold;
-  color: black;
+  color: white;
   border: none;
 }
 
 input:hover {
-  color: darkslategray;
+  /* color: darkslategray; */
 }
 
 .list-header {
@@ -46,6 +46,7 @@ input:hover {
 h4 {
   margin: 0;
   text-align: left;
+  color: white;
 }
 
 .button-wrapper{

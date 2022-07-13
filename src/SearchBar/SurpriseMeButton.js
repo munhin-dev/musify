@@ -52,8 +52,13 @@ export default function SearchButton({onHandleSearch}) {
     onClick={() => handleClick(onHandleSearch)} 
     disableElevation
     sx={{
-      marginTop: 5,
-      marginLeft: 5
+      marginTop: 4,
+      paddingLeft: 2.2,
+      paddingRight: 2.2,
+      marginLeft: 5,
+      backgroundColor: "#84A98C",
+      borderRadius: 5,
+      fontWeight: "bold"
     }}>
       Surprise Me
     </Button>

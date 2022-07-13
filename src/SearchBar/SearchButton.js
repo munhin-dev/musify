@@ -33,12 +33,17 @@ function handleClick(selectedResult, onHandleSearch){
 export default function SearchButton({ selectedResult, onHandleSearch }) {
   return (
     <Button 
-    variant="contained"
-    onClick={() => handleClick(selectedResult, onHandleSearch)} 
-    disableElevation
-    sx={{
-      marginTop: 5
-    }}>
+      variant="contained"
+      onClick={() => handleClick(selectedResult, onHandleSearch)} 
+      disableElevation
+      sx={{
+        marginTop: 4,
+        paddingLeft: 2.2,
+        paddingRight: 2.2,
+        backgroundColor: "#84A98C",
+        borderRadius: 7,
+        fontWeight: "bold"
+      }}>
       Search
     </Button>
   );
