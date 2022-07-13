@@ -32,7 +32,6 @@ function App() {
         <div className="App">
           <h1>Welcome to Musify!!!</h1>
           <SearchBar token={token} onHandleSearch={handleSearch} />
-          <MediaPlayer {...tracks}/>
           <Playlist
             data={{
               token,
@@ -43,6 +42,7 @@ function App() {
               handleTracks,
             }}
           />
+          <MediaPlayer {...tracks} />
         </div>
       )}
       {!token && <Login />}

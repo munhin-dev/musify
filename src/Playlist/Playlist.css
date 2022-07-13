@@ -4,6 +4,7 @@
 
 .playlist-container {
   padding: 0 1vw;
+  min-width: 1250px;
 }
 
 .playlist-name {
@@ -26,12 +27,13 @@ input:hover {
 }
 
 .list-header {
-  padding-left: .8vw;
+  padding-left: 0.8vw;
   padding-bottom: 1vh;
   margin-bottom: 1vh;
   display: grid;
   grid-template-columns: 1.5% 49.2% 42.3% 7%;
   border-bottom: 1px solid gray;
+  min-width: 1250px;
 }
 
 .track-list {
