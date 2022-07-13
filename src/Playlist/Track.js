@@ -5,9 +5,7 @@ import './Track.css'
 
 function Track(props) {
 
-  const track = props.data.track
-  const idx = props.data.idx
-  const removeTrack = props.data.removeTrack
+  const { track, idx, removeTrack } = props.data
 
   const runtime = (ms) => {
     const minutes = Math.floor(ms / 60000);

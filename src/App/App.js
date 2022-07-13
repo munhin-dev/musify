@@ -9,10 +9,16 @@ import "./App.css";
 function App() {
   const [token, setToken] = useState(null);
   const [searchResult, setSearchResult] = useState([])
+  const [playlistName, setPlaylistName] = useState('Playlist Name')
+
   useEffect(() => setToken(Musify.getAccessToken()), []);
 
   function handleSearch(result){
     setSearchResult(result)
+  }
+
+  function handlePlaylistName(playlistName) {
+    setPlaylistName(playlistName)
   }
 
   return (
@@ -22,7 +28,9 @@ function App() {
           <h1>Welcome to Musify!!!</h1>
           <SearchBar token={token}  onHandleSearch={handleSearch}/>
           <MediaPlayer />
-          <Playlist />
+          <Playlist 
+          data={ {token, searchResult, playlistName, handlePlaylistName, handleSearch} } 
+          />
         </div>
       )}
       {!token && <Login />}

@@ -1,16 +1,13 @@
-import { useEffect, useState } from 'react';
-import Cookie from "js-cookie";
+import { useEffect } from 'react';
 import axios from 'axios';
 import Track from './Track';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import './Playlist.css'
 
-function Playlist() {
-  let [tracks, setTracks] = useState([])
-  let [playlistName, setPlaylistName] = useState('Playlist Name')
+function Playlist(props) {
+  const {token, searchResult, playlistName, handlePlaylistName, handleSearch} = props.data
 
   useEffect(() => {
-    const token = Cookie.get("token");
 
     const headers = {
       headers: {
@@ -21,10 +18,9 @@ function Playlist() {
     };
 
     axios.get("https://api.spotify.com/v1/me/top/tracks?limit=15", headers).then((response) => {
-      // console.log(response.data);
 
       const newTracks = response.data.items
-      setTracks(newTracks)
+      handleSearch(newTracks)
 
     })
       .catch(error => {
@@ -33,15 +29,13 @@ function Playlist() {
   }, [])
 
   const changePlaylistName = (e) => {
-    setPlaylistName(e.target.value)
-
-    console.log(playlistName);
+    handlePlaylistName(e.target.value)
   }
 
   const removeTrack = (idx) => {
-    const newTracks = tracks.filter(track => tracks.indexOf(track) !== idx)
+    const newTracks = searchResult.filter(track => searchResult.indexOf(track) !== idx)
 
-    setTracks(newTracks)
+    handleSearch(newTracks)
   }
 
   return (
@@ -57,7 +51,7 @@ function Playlist() {
           <AccessTimeIcon />
         </div>
         <div className="track-list">
-          {tracks.map((track, idx) =>
+          {searchResult.map((track, idx) =>
             <Track data={{ track, idx, removeTrack }} />
           )}
         </div>
