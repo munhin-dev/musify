@@ -43,10 +43,6 @@ export default function SearchBar(props) {
     setSelectedResult(newValue);
   }
 
-  const StyledAutocomplete = styled(Autocomplete)({
-
-});
-
   return (
     <div>
       <Autocomplete
@@ -103,7 +99,7 @@ export default function SearchBar(props) {
               }
             }}
             sx={{ 
-              borderRadius: 5,
+              // borderRadius: 5,
               backgroundColor: 'white'
             }}
           />

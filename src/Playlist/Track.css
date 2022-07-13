@@ -48,7 +48,7 @@
 p {
   margin: auto 0;
   text-align: left;
-  color: rgb(183, 183, 183);
+  color: #ADB5BD;
   font-size: 0.8em;
 }
 
@@ -66,4 +66,14 @@ p {
 .track-container:hover .remove-btn {
   display: flex;
   align-items: center;
+}
+
+.track-container {
+  padding-bottom: 15px;
+  padding-top: 9px;
+  border-bottom: 1px solid gray;
+}
+
+.track-container:hover {
+  background-color: #343A40;
 }

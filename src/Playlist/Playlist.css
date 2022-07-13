@@ -1,10 +1,7 @@
-/* * {
-  border: 1px solid red;
-} */
-
 .playlist-container {
   padding: 0 1vw;
   min-width: 1250px;
+  height: 71vh;
 }
 
 .playlist-header {
@@ -22,16 +19,17 @@ input {
   font-weight: bold;
   color: white;
   border: none;
+  background-color: #212529;
+  border: none;
 }
 
-input:hover {
-  /* color: darkslategray; */
+input:focus{
+  outline: none;
 }
 
 .list-header {
   padding-left: 0.8vw;
   padding-bottom: 1vh;
-  margin-bottom: 1vh;
   display: grid;
   grid-template-columns: 1.5% 49.2% 42.3% 7%;
   border-bottom: 1px solid gray;
@@ -40,7 +38,22 @@ input:hover {
 
 .track-list {
   overflow-y: scroll;
-  height: 50vh;
+  height: 100%;
+}
+
+.track-list::-webkit-scrollbar {
+  background-color: #212529;
+  width: 10px;
+}
+
+.track-list::-webkit-scrollbar-thumb {
+  width: 10px;
+  background-color: #343A40;
+  border-radius: 10px; 
+}
+
+.list-container {
+  height: 87%;
 }
 
 h4 {

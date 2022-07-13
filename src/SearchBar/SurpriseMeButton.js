@@ -50,15 +50,19 @@ export default function SearchButton({onHandleSearch}) {
     <Button 
     variant="contained"
     onClick={() => handleClick(onHandleSearch)} 
-    disableElevation
     sx={{
       marginTop: 4,
       paddingLeft: 2.2,
       paddingRight: 2.2,
       marginLeft: 5,
-      backgroundColor: "#84A98C",
+      color: "white",
       borderRadius: 5,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      backgroundColor: "#495057",
+      borderColor: "#6C757D",
+      "&:hover": {
+        backgroundColor: "#6C757D",
+      }
     }}>
       Surprise Me
     </Button>

@@ -35,14 +35,18 @@ export default function SearchButton({ selectedResult, onHandleSearch }) {
     <Button 
       variant="contained"
       onClick={() => handleClick(selectedResult, onHandleSearch)} 
-      disableElevation
       sx={{
         marginTop: 4,
         paddingLeft: 2.2,
         paddingRight: 2.2,
-        backgroundColor: "#84A98C",
         borderRadius: 7,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "white",
+        backgroundColor: "#495057",
+        borderColor: "#6C757D",
+        "&:hover": {
+          backgroundColor: "#6C757D",
+        }
       }}>
       Search
     </Button>
