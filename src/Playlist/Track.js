@@ -12,7 +12,7 @@ function Track(props) {
   };
 
   return (
-    <Stack mt={2}>
+    <Stack>
       <div
         className="track-container"
         onClick={(event) => {
@@ -23,7 +23,7 @@ function Track(props) {
         <div className="num-play-wrapper">
           <h4 className="num">{idx + 1}</h4>
           <div className="play-btn">
-            <PlayArrowIcon />
+            <PlayArrowIcon style={{color: "white"}}/>
           </div>
         </div>
         <img src={track.album.images[2].url} alt="" />
@@ -39,7 +39,7 @@ function Track(props) {
               removeTrack(idx);
               event.stopPropagation();
             }}
-            sx={{ margin: `auto 0` }}
+            sx={{ margin: `auto 0`, color: '#ADB5BD' }}
           />
         </div>
       </div>

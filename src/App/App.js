@@ -5,6 +5,7 @@ import Playlist from "../Playlist/Playlist";
 import Musify from "../Utilities/index";
 import Login from "../Login/Login";
 import "./App.css";
+import Logo from "./logo.jpg"
 
 function App() {
   const [token, setToken] = useState(null);
@@ -30,7 +31,7 @@ function App() {
     <Fragment>
       {token && (
         <div className="App">
-          <h1>Welcome to Musify!!!</h1>
+          <img src={Logo} alt="" width="320" height="130"/>
           <SearchBar token={token} onHandleSearch={handleSearch} />
           <Playlist
             data={{

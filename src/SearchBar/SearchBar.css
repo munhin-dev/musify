@@ -12,3 +12,18 @@
   font-style: italic;
 }
 
+.inputBox .MuiOutlinedInput-root {
+  border-radius: 50px;
+}
+/* 
+.MuiAutocomplete-inputRoot .MuiOutlinedInput-notchedOutline {
+  border: 1px solid red;
+}
+
+.MuiAutocomplete-inputRoot:hover .MuiOutlinedInput-notchedOutline{
+  border: 1px solid yellow;
+}
+
+.MuiAutocomplete-inputRoot .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border: 1px solid yellow;
+} */

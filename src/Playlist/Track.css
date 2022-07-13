@@ -42,11 +42,14 @@
   margin: 0;
   font-size: 1em;
   text-align: left;
+  color: white;
 }
 
 p {
   margin: auto 0;
   text-align: left;
+  color: #ADB5BD;
+  font-size: 0.8em;
 }
 
 .track-container span {
@@ -63,4 +66,14 @@ p {
 .track-container:hover .remove-btn {
   display: flex;
   align-items: center;
+}
+
+.track-container {
+  padding-bottom: 15px;
+  padding-top: 9px;
+  border-bottom: 1px solid gray;
+}
+
+.track-container:hover {
+  background-color: #343A40;
 }

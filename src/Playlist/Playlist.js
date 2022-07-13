@@ -101,10 +101,31 @@ function Playlist(props) {
       <header className="playlist-header">
         <input onChange={changePlaylistName} value={playlistName} placeholder="Playlist Name..." />
         <div className="button-wrapper">
-          <Button onClick={handleSave} size="small" variant="contained" sx={{ mx: 1 }}>
+          <Button onClick={handleSave} size="small" variant="contained" 
+            sx={{ 
+              mx: 1,
+              borderRadius: 7,
+              backgroundColor: "#495057",
+              fontWeight: "bold",
+              borderColor: "#6C757D",
+              "&:hover": {
+                backgroundColor: "#6C757D",
+              } 
+              }}>
             Save
           </Button>
-          <Button onClick={handleClear} size="small" variant="outlined">
+          <Button onClick={handleClear} size="small" variant="outlined"
+            sx={{ 
+              color: "white",
+              fontWeight: "bold",
+              mx: 1,
+              borderRadius: 7,
+              borderColor: "#495057",
+              "&:hover": {
+                backgroundColor: "#c10510",
+                borderColor: "#c10510"
+              } 
+              }}>
             Clear
           </Button>
         </div>
@@ -114,7 +135,7 @@ function Playlist(props) {
           <h4>#</h4>
           <h4>TITLE</h4>
           <h4>ALBUM</h4>
-          <AccessTimeIcon />
+          <AccessTimeIcon style ={{color: 'white'}}/>
         </div>
         <div className="track-list">
           {searchResult.map((track, idx) => (

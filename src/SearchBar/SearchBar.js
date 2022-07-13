@@ -2,11 +2,12 @@ import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
-// import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import "./SearchBar.css";
 import SearchButton from "./SearchButton";
 import SurpriseMeButton from "./SurpriseMeButton";
+import { inputLabelClasses } from "@mui/material/InputLabel";
 
 const axios = require("axios");
 
@@ -83,16 +84,40 @@ export default function SearchBar(props) {
         filterSelectedOptions
         renderInput={(params) => (
           <TextField
+            className="inputBox"
             {...params}
-            variant="standard"
+            outline='none'
             onChange={handleChange}
-            label="Enter up to 5 tracks or artists"
-            sx={{ borderRadius: 2 }}
+            placeholder="Enter up to 5 tracks or artists"
+            InputLabelProps={{
+              shrink: false,
+              sx: {
+                color: "#CAD2C5",
+                [`&.${inputLabelClasses.shrink}`]: {
+                  color: "orange"
+                }
+              }
+            }}
+            sx={{ 
+              // borderRadius: 5,
+              backgroundColor: 'white'
+            }}
           />
         )}
         sx={{
           width: 4 / 10,
           m: "auto",
+          "& .MuiAutocomplete-inputRoot": {
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white"
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white"
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white"
+          }
+  }
         }}
       />
       <SearchButton

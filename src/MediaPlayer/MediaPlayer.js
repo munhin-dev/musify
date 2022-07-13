@@ -60,18 +60,18 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   return (
     <div className="media-player">
-      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", border: 1 }}>
-        <CardMedia component="img" sx={{ width: 128, height: 128 }} image={artwork} />
+      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", backgroundColor: "#343A40"}}>
+        <CardMedia component="img" sx={{ width: 90, height: 90 }} image={artwork} />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography component="div" variant="h6" sx={{ my: 1 }}>
+          <Typography component="div" variant="h6" sx={{ mt: 1, fontWeight:"bold", fontSize:20 }}>
             {name}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
+          <Typography variant="subtitle1" component="div" sx={{ color:"#ADB5BD", fontSize:12 }}>
             {artist}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", mt: 1, mx: 1 }}>
-            <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38 }} /> : <PlayArrowIcon sx={{ height: 38, width: 38 }} />}</IconButton>
-            <Slider size="small" color="secondary" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450 }} />
+          <Box sx={{ display: "flex", alignItems: "center", mx: 1 }}>
+            <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38, color:"white" }} /> : <PlayArrowIcon sx={{ height: 38, width: 38, color:"white" }} />}</IconButton>
+            <Slider size="small" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450, color:"white" }} />
           </Box>
         </Box>
       </Card>
