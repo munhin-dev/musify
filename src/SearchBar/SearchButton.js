@@ -25,7 +25,7 @@ function handleClick(selectedResult, onHandleSearch){
   })
 
   axios.get(`https://api.spotify.com/v1/recommendations?limit=15&seed_artists=${seedArtist.join(',')}&seed_tracks=${seedTrack.join(',')}`, headers).then((response) => {
-    onHandleSearch(response.data.tracks)
+    onHandleSearch(response.data.tracks.filter(track => track.preview_url !== null))
   })
   .catch((err) => console.log(err))
 }
