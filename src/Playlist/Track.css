@@ -1,0 +1,64 @@
+/* * {
+  border: 1px solid red;
+} */
+
+.track-container {
+  height: 60px;
+  display: grid;
+  grid-template-columns: 2% 6% 43% 42% 5% 2%
+}
+
+.num-play-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.num {
+  display: block;
+  font-weight: normal;
+}
+
+.play-btn {
+  display: none;
+}
+
+.num-play-wrapper:hover .num {
+  display: none;
+}
+
+.num-play-wrapper:hover .play-btn {
+  display: flex;
+  align-items: center;
+}
+
+.name-artist-wrapper {
+  margin: auto 0;
+}
+
+.track-name {
+  margin: 0;
+  font-size: 1em;
+  text-align: left;
+}
+
+p {
+  margin: auto 0;
+  text-align: left;
+}
+
+span {
+  margin: auto 0;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.remove-btn {
+  margin: auto 0;
+  display: none;
+}
+
+.track-container:hover .remove-btn {
+  display: flex;
+  align-items: center;
+}

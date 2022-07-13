@@ -1,0 +1,40 @@
+/* * {
+  border: 1px solid red;
+} */
+
+.playlist-container {
+  padding: 0 1vw;
+}
+
+.playlist-name {
+  text-align: left;
+  margin: 1vh 0;
+}
+
+input {
+  width: 100%;
+  padding: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+input:hover {
+  color: darkslategray;
+}
+
+.list-header {
+  padding-left: .8vw;
+  padding-bottom: 1vh;
+  margin-bottom: 1vh;
+  display: grid;
+  grid-template-columns: 1.5% 49.2% 42.3% 7%;
+  border-bottom: 1px solid gray;
+}
+
+h4 {
+  margin: 0;
+  text-align: left;
+}
