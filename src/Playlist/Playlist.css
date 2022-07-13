@@ -16,7 +16,7 @@
 }
 
 input {
-  width: 80%;
+  width: 100%;
   padding: 0;
   font-size: 1.5em;
   font-weight: bold;
@@ -26,12 +26,6 @@ input {
 
 input:hover {
   color: darkslategray;
-}
-
-.button-wrapper {
-  width: 20%;
-  display: flex;
-  justify-content: space-evenly;
 }
 
 .list-header {
@@ -52,4 +46,8 @@ input:hover {
 h4 {
   margin: 0;
   text-align: left;
+}
+
+.button-wrapper{
+  display: flex;
 }

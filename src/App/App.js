@@ -9,7 +9,7 @@ import "./App.css";
 function App() {
   const [token, setToken] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
-  const [playlistName, setPlaylistName] = useState("Playlist Name");
+  const [playlistName, setPlaylistName] = useState("");
   const [tracks, setTracks] = useState({});
 
   useEffect(() => setToken(Musify.getAccessToken()), []);
