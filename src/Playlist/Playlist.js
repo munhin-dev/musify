@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import Track from './Track';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Button from '@mui/material/Button';
 import './Playlist.css'
 
 function Playlist(props) {
@@ -44,6 +45,41 @@ function Playlist(props) {
     handleSearch(newTracks)
   }
 
+  async function handleSave() {
+    const headers = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    let userId;
+
+    await axios.get("https://api.spotify.com/v1/me", headers).then((response) => {
+      userId = response.data.id    
+    })
+
+    const requestBody = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        "name": `${playlistName}`,
+        "description": "",
+        "public": false
+      }
+    }
+
+    await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, requestBody)
+  }
+
+  const handleClear = () => {
+    handleSearch([])
+  }
+
   return (
     <section className="playlist-container">
       <header className="playlist-name">
@@ -62,6 +98,12 @@ function Playlist(props) {
           ))}
         </div>
       </div>
+      <footer>
+        <div className="button-container">
+          <Button onClick={handleSave} variant="contained">Save</Button>
+          <Button onClick={handleClear} variant="outlined">Clear</Button>
+        </div>
+      </footer>
     </section>
   );
 }

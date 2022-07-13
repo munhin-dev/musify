@@ -38,3 +38,9 @@ h4 {
   margin: 0;
   text-align: left;
 }
+
+footer {
+  margin-top: 1vh;
+  padding: 1vh 0;
+  background-color: #efefef;
+}
