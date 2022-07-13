@@ -54,32 +54,31 @@ function Playlist(props) {
       },
     };
 
-    let userId;
+    const requestBody = {
+      "name": `${playlistName}`,
+      "description": "",
+      "public": false
+    }
+
+    const trackURIs = searchResult.map(result => result.uri).join('%2C').split(':').join('%3A')
+
+    let userId, playlistId;
 
     await axios.get("https://api.spotify.com/v1/me", headers).then((response) => {
       userId = response.data.id    
     })
 
-    const requestBody = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: {
-        "name": `${playlistName}`,
-        "description": "",
-        "public": false
-      }
-    }
-
-    await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, requestBody)
+    await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, requestBody, headers).then((response) => {
+      playlistId = response.data.id
+    })
+    
+    await axios.post(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${trackURIs}`,{}, headers)
   }
 
   const handleClear = () => {
     handleSearch([])
   }
-
+console.log(searchResult);
   return (
     <section className="playlist-container">
       <header className="playlist-name">
@@ -93,7 +92,7 @@ function Playlist(props) {
           <AccessTimeIcon />
         </div>
         <div className="track-list">
-          {searchResult.map((track, idx) => (
+          {searchResult.filter(track => track.preview_url !== null).map((track, idx) => (
             <Track key={idx} data={{ track, idx, removeTrack, handleTracks }} />
           ))}
         </div>

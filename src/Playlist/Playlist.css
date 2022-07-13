@@ -34,6 +34,11 @@ input:hover {
   border-bottom: 1px solid gray;
 }
 
+.track-list {
+  overflow-y: scroll;
+  height: 50vh;
+}
+
 h4 {
   margin: 0;
   text-align: left;
