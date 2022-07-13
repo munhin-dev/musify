@@ -1,41 +1,84 @@
-import './SearchBar.css'
+import * as React from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material/styles';
 import {useState} from 'react'
+import "./SearchBar.css"
+import SearchButton from './SearchButton';
+import SurpriseMeButton from './SurpriseMeButton'
 
-function SearchBar() {
-  let [searchBar1Content, setSearchBar1Content] = useState([])
-  let [searchBarList, setSearchBarList] = useState([1])
+const axios = require('axios')
 
-  function handleSubmit(e){
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const formEntries = Object.fromEntries(formData)
-    for (let key in formEntries){
-      console.log(`the value of ${key} is ${formEntries[key]}`)
-    }
-    // console.log(formEntries.choice0)
+export default function SearchBar(props) {
+
+  let [searchResult, setSearchResult] = useState([])
+  let [selectedResult, setSelectedResult] = useState([])
+  
+  function handleChange(e){
+    const query = e.target.value.split(' ').join('%20')
+    const token = props.token
+    const headers = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+    };
+    axios.get(`https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=8`, headers).then((response) => {
+      let data = response.data.artists.items.concat(response.data.tracks.items)
+      setSearchResult(data)
+    })
+    .catch(err => console.log(err))
   }
 
-  function addParameter(){
-    setSearchBarList([...searchBarList, 1])
+  function handleTxtChange(_, newValue) {
+    setSelectedResult(newValue)
   }
-
+  
   return (
     <div>
-      <form onSubmit={handleSubmit} className="searchForm">
-      {searchBarList.map((_, idx) => <div className={`searchBar${idx}`}>
-        <input type="text" name={`searchBarText${idx}`}/>
-         <select name={`choice${idx}`}>
-           <option value="artist">Artist</option>
-           <option value="track">Track</option>
-           <option value="genre">Genre</option>
-         </select>
-       </div>)}
-        <button>Submit</button>
-      </form>
-      <button onClick={addParameter}>Add Parameter</button>
-      
-    </div>
-  )
+      <Autocomplete
+        multiple
+        id="tags-standard"
+        options={searchResult}
+        getOptionDisabled={(option) => selectedResult.length >= 5}
+        onChange={(_, val) => handleTxtChange(_, val)}
+        renderOption={(props, option) => (
+          <li {...props}>
+            <img src={option.type === 'artist' ? option?.images[2]?.url : option?.album.images[2]?.url} width='40' height='40'></img>
+            <div className='details-wrapper'>
+              <div className='title'>{option.name}</div>
+              <div className='type'>{option.type[0].toUpperCase() + option.type.slice(1)}</div>
+            </div>
+          </li>
+        )}
+        renderTags={(tagValue, getTagProps) =>
+        tagValue.map((option, index) => (
+          <Chip
+          label={option.name}
+          {...getTagProps({index})}
+          color={option.type === 'artist' ? 'primary' : 'success'}
+          />
+        ))}
+        getOptionLabel={(option) => option.name}
+        filterSelectedOptions
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="standard"
+            onChange={handleChange}
+            label="Enter up to 5 tracks or artists"
+            sx={{borderRadius: 2}}
+          />
+        )}
+        sx={{
+          width: 4/10,
+          m: "auto"
+        }}
+      />
+      <SearchButton selectedResult={selectedResult} onHandleSearch={props.onHandleSearch}/>
+      <SurpriseMeButton onHandleSearch={props.onHandleSearch}/>
+  </div>
+  );
 }
-
-export default SearchBar

@@ -8,14 +8,19 @@ import "./App.css";
 
 function App() {
   const [token, setToken] = useState(null);
+  const [searchResult, setSearchResult] = useState([])
   useEffect(() => setToken(Musify.getAccessToken()), []);
+
+  function handleSearch(result){
+    setSearchResult(result)
+  }
 
   return (
     <Fragment>
       {token && (
         <div className="App">
           <h1>Welcome to Musify!!!</h1>
-          <SearchBar token={token} />
+          <SearchBar token={token}  onHandleSearch={handleSearch}/>
           <MediaPlayer />
           <Playlist />
         </div>

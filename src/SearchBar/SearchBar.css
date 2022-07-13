@@ -1,0 +1,14 @@
+.details-wrapper {
+  margin-left: 10px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: -5px;
+}
+
+.type {
+  font-size: 12px;
+  font-style: italic;
+}
+
