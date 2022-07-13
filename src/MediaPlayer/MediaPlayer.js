@@ -10,7 +10,7 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Slider from "@mui/material/Slider";
 import "./MediaPlayer.css";
 
-function MediaPlayer({ url, artwork, title, artist }) {
+function MediaPlayer({ url, artist, title, artwork }) {
   const [audio, setAudio] = useState(new Audio());
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -24,7 +24,9 @@ function MediaPlayer({ url, artwork, title, artist }) {
     const handleUpdate = () => {
       setProgress((audio.currentTime / audio.duration) * 100);
     };
-    audio.addEventListener("ended", () => setPlaying(false));
+    audio.addEventListener("ended", () => {
+      setPlaying(false);
+    });
     audio.addEventListener("timeupdate", handleUpdate);
     renderCount.current > 2
       ? audio.play().then(() => setPlaying(true))
