@@ -16,10 +16,10 @@ function Track(props) {
 
   return (
     <Stack mt={2}>
-      <div className="track-container">
+      <div className="track-container" onClick={() => handleTracks(track)}>
         <div className="num-play-wrapper">
           <h4 className="num">{idx + 1}</h4>
-          <div className="play-btn" onClick={() => handleTracks(track)}>
+          <div className="play-btn">
             <PlayArrowIcon />
           </div>
         </div>
@@ -31,10 +31,7 @@ function Track(props) {
         <p>{track.album.name}</p>
         <p>{runtime(track.duration_ms)}</p>
         <div className="remove-btn">
-          <RemoveCircleOutlineIcon
-            onClick={() => removeTrack(idx)}
-            style={{ margin: `auto 0` }}
-          />
+          <RemoveCircleOutlineIcon onClick={() => removeTrack(idx)} style={{ margin: `auto 0` }} />
         </div>
       </div>
     </Stack>

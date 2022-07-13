@@ -5,7 +5,9 @@
 .track-container {
   height: 60px;
   display: grid;
-  grid-template-columns: 2% 6% 43% 42% 5% 2%
+  grid-template-columns: 2% 6% 43% 42% 5% 2%;
+  cursor: pointer;
+  min-width: 1250px;
 }
 
 .num-play-wrapper {
