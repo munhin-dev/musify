@@ -1,12 +1,12 @@
-import './App.css';
-import SearchBar from './SearchBar/SearchBar'
+// import './App.css';
+// import SearchBar from './SearchBar/SearchBar'
 
-function App() {
-  return (
-    <div className="App">
-      <SearchBar />
-    </div>
-  );
-}
+// function App() {
+//   return (
+//     <div className="App">
+//       <SearchBar />
+//     </div>
+//   );
+// }
 
-export default App;
+// export default App;

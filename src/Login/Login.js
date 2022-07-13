@@ -8,8 +8,8 @@ export default function Login() {
     <div className="login">
       <h1>Welcome to Musify</h1>
       <h2>If Only Everything in Life was as Reliable as a Music</h2>
-      <Button className="button" variant="contained">
-        <a href={loginUrl}>Login with Spotify</a>
+      <Button href={loginUrl} className="button" variant="contained">
+        Login with Spotify
       </Button>
     </div>
   );
