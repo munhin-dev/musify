@@ -5,10 +5,16 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import './Playlist.css'
 
 function Playlist(props) {
-  const {token, searchResult, playlistName, handlePlaylistName, handleSearch} = props.data
+  const {
+    token,
+    searchResult,
+    playlistName,
+    handlePlaylistName,
+    handleSearch,
+    handleTracks,
+  } = props.data;
 
   useEffect(() => {
-
     const headers = {
       headers: {
         Accept: "application/json",
@@ -17,15 +23,16 @@ function Playlist(props) {
       },
     };
 
-    axios.get("https://api.spotify.com/v1/me/top/tracks?limit=15", headers).then((response) => {
-
-      const newTracks = response.data.items
-      handleSearch(newTracks)
-
-    })
-      .catch(error => {
-        console.log(error)
+    axios
+      .get("https://api.spotify.com/v1/me/top/tracks?limit=15", headers)
+      .then((response) => {
+        const newTracks = response.data.items;
+        handleSearch(newTracks);
       })
+      .catch((error) => {
+        console.log(error);
+      });
+  // eslint-disable-next-line
   }, [])
 
   const changePlaylistName = (e) => {
@@ -34,12 +41,11 @@ function Playlist(props) {
 
   const removeTrack = (idx) => {
     const newTracks = searchResult.filter(track => searchResult.indexOf(track) !== idx)
-
     handleSearch(newTracks)
   }
 
   return (
-    <section className='playlist-container'>
+    <section className="playlist-container">
       <header className="playlist-name">
         <input onChange={changePlaylistName} value={playlistName} size={100} />
       </header>
@@ -51,13 +57,13 @@ function Playlist(props) {
           <AccessTimeIcon />
         </div>
         <div className="track-list">
-          {searchResult.map((track, idx) =>
-            <Track data={{ track, idx, removeTrack }} />
-          )}
+          {searchResult.map((track, idx) => (
+            <Track key={idx} data={{ track, idx, removeTrack, handleTracks }} />
+          ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default Playlist

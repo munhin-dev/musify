@@ -10,6 +10,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [searchResult, setSearchResult] = useState([]);
   const [playlistName, setPlaylistName] = useState("Playlist Name");
+  const [tracks, setTracks] = useState({});
 
   useEffect(() => setToken(Musify.getAccessToken()), []);
 
@@ -21,13 +22,17 @@ function App() {
     setPlaylistName(playlistName);
   }
 
+  function handleTracks(tracks) {
+    setTracks(tracks);
+  }
+
   return (
     <Fragment>
       {token && (
         <div className="App">
           <h1>Welcome to Musify!!!</h1>
           <SearchBar token={token} onHandleSearch={handleSearch} />
-          <MediaPlayer />
+          <MediaPlayer {...tracks}/>
           <Playlist
             data={{
               token,
@@ -35,6 +40,7 @@ function App() {
               playlistName,
               handlePlaylistName,
               handleSearch,
+              handleTracks,
             }}
           />
         </div>

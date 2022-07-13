@@ -10,11 +10,14 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Slider from "@mui/material/Slider";
 import "./MediaPlayer.css";
 
-function MediaPlayer({ url, artist, title, artwork }) {
+function MediaPlayer({ preview_url: url, artists, name, album }) {
   const [audio, setAudio] = useState(new Audio());
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const renderCount = useRef(0);
+
+  const artwork = album?.images[0].url;
+  const artist = (artists || [])[0]?.name;
 
   useEffect(() => {
     setAudio(new Audio(url));
@@ -68,7 +71,7 @@ function MediaPlayer({ url, artist, title, artwork }) {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto", py: 0 }}>
             <Typography component="div" variant="h6" sx={{ mt: 1 }}>
-              {title}
+              {name}
             </Typography>
             <Typography
               variant="subtitle2"
