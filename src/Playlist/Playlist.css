@@ -1,7 +1,7 @@
 .playlist-container {
   padding: 0 1vw;
   min-width: 1250px;
-  height: 71vh;
+  height: calc(100vh - 450px)
 }
 
 .playlist-header {
