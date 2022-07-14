@@ -1,10 +1,12 @@
-# Getting Started with Create React App
+# Musify
+
+Musify is a web based app made to give you recommendations from spotify based on your input. The results can be previewed and removed or it can be add as a new playlist into your library. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## To Run Musify
 
-In the project directory, you can run:
+Currently, Musify is still in development so the app can only be runs in development mode. To do that, in the project directory, you can run:
 
 ### `npm start`
 
@@ -14,57 +16,50 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+## How To Use
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To access the web app, users must first login into Spotify and will be redirected to the main page. There are three main components to the app the Searchbar, Playlist and Player. Below you can find the use examples for each component.
 
-### `npm run build`
+### `Searchbar`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To make a search, type your desired input and confirm by selecting an option from the autocomplete dropdown list. The searchbar will only accept up to five (5) chips, once the limit is reached the autocomplete dropdown list will be disabled. Click "SEARCH" to generate a playlist based on your search or click "SURPRISE ME" to get a random playlist based on your profile. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Chips
+    - Chips are search inputs that is selected from the autocomplete dropdown list.
+    - You can remove a chip by clicking on the "x" button on the right of the chip.
+    - Chips are color coded, Blue for Artist and Green for Songs.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Autocomplete dropdown list
+    - The autocomplete dropdown list is to assist in selecting the right search item.
+    - The list will be populated by tracks and artist most relevent to your search input.
+    - You can toggle the dropdown by click the up or down button on the right of the searchbar.
 
-### `npm run eject`
+### `Playlist`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The Playlist will be automatically populated with the user's top 15 songs. After clicking the "SEARCH" or "SURPRISE ME" button, the Playlist will be update with the new results. The Playlist can be saved by clicking the "SAVE" button or emptied by clicking the "CLEAR" button. To name the Playlist, click on the text "Playlis Name..." and you will be able to input any name.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Playlist items
+    - Each item in the Playlist will display # (number), TITLE (album art,song title & artist), ALBUM (album name) and TIMER ICON (song runtime)
+    - Hovering the cursor over each individual item will display a REMOVE button, click it to remove the specific item.
+    - Hovering the cursor over each number will display a PLAY button, click it to play a preview of the song.
+    - Clicking on anywhere EXCEPT the REMOVE button will play a preview of the song.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `Player`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The Player is at the bottom of the page and displays the information of the current song (song name, artist & album art). You can play or pause by clicking the PLAY/PAUSE button on the right of the album art. If a song is currently playing while a new search is made the current song will continue to display and play in the Player.
 
-## Learn More
+1. Playback Bar
+    - You can click anywhere on the Playback Bar and set the point you would like to listen from.
+    - Alternatively, you can also drag the round pointer to set the point.
+    - When the preview has ended, clicking the PlAY button again will reset the round pointer to the start of the bar.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Authors & Acknowledgment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `Authors`
+- Ken
+- Mun Hin
+- Edmund
 
-### Code Splitting
+### `Acknowledgment`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+We would like to thank DT for teaching us the fundamentals required to get started on this project as well as supporting us while working on this.
