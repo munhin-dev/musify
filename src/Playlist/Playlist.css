@@ -31,7 +31,7 @@ input:focus{
   padding-left: 0.8vw;
   padding-bottom: 1vh;
   display: grid;
-  grid-template-columns: 1.5% 49.2% 42.3% 7%;
+  grid-template-columns: 1.5% 49.2% 41.8% 7%;
   border-bottom: 1px solid gray;
   min-width: 1250px;
 }
