@@ -22,7 +22,7 @@ To access the web app, users must first login into Spotify and will be redirecte
 
 ### `Searchbar`
 
-To make a search, type your desired input and confirm by selecting an option from the autocomplete dropdown list. The searchbar will only accept up to five (5) chips, once the limit is reached the autocomplete dropdown list will be disabled. Click "SEARCH" to generate a playlist based on your search or click "SURPRISE ME" to get a random playlist based on your profile. 
+To make a search, type your desired input and confirm by selecting an option from the autocomplete dropdown list. The searchbar will only accept up to five (5) chips, once the limit is reached the autocomplete dropdown list will be disabled. Click "SEARCH" to generate a playlist based on your search or click "SURPRISE ME" to get a random playlist based on your profile.
 
 1. Chips
     - Chips are search inputs that is selected from the autocomplete dropdown list.
@@ -33,6 +33,9 @@ To make a search, type your desired input and confirm by selecting an option fro
     - The autocomplete dropdown list is to assist in selecting the right search item.
     - The list will be populated by tracks and artist most relevent to your search input.
     - You can toggle the dropdown by click the up or down button on the right of the searchbar.
+
+3. Search
+    - Clicking new "SEARCH" or "SURPISE ME" will generate new results on top of current list.
 
 ### `Playlist`
 
@@ -46,7 +49,7 @@ The Playlist will be automatically populated with the user's top 15 songs. After
 
 ### `Player`
 
-The Player is at the bottom of the page and displays the information of the current song (song name, artist & album art). You can play or pause by clicking the PLAY/PAUSE button on the right of the album art. If a song is currently playing while a new search is made the current song will continue to display and play in the Player.
+The Player is at the bottom of the page and will only display when a song is clicked. The player will display the information of the current song (song name, artist & album art) or the song from the previous session. You can play or pause by clicking the PLAY/PAUSE button on the right of the album art. If a song is currently playing while a new search is made the current song will continue to display and play in the Player.
 
 1. Playback Bar
     - You can click anywhere on the Playback Bar and set the point you would like to listen from.
