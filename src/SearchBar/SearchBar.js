@@ -2,7 +2,6 @@ import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
-import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import "./SearchBar.css";
 import SearchButton from "./SearchButton";

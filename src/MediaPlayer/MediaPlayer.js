@@ -8,6 +8,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import Slider from "@mui/material/Slider";
 import "./MediaPlayer.css";
+import Cookies from "js-cookie";
 
 function MediaPlayer({ preview_url: url, artists, name, album }) {
   const [audio, setAudio] = useState(new Audio());
@@ -20,6 +21,8 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   useEffect(() => {
     setAudio(new Audio(url));
+    Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
+    // eslint-disable-next-line
   }, [url]);
 
   useEffect(() => {
@@ -51,27 +54,30 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   const handleCommit = () => (audio.muted = false);
 
-  if (!url) {
-    url = "https://p.scdn.co/mp3-preview/562e8ed1dc5bf6235895b06904358e1472bfe41c?cid=9868d45c684c48c197e1ec8bf128367f";
-    artist = "John Legend";
-    name = "All of Me";
-    artwork = "https://i.scdn.co/image/ab67616d0000b27394c9217a398f5174757c0c78";
+  if (!url && Cookies.get("lastPlayed")) {
+    const lastPlay = JSON.parse(Cookies.get("lastPlayed"));
+    url = lastPlay.url;
+    artwork = lastPlay.artwork;
+    name = lastPlay.name;
+    artist = lastPlay.artist;
   }
+
+  if (!url) return;
 
   return (
     <div className="media-player">
-      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", backgroundColor: "#343A40"}}>
+      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", backgroundColor: "#343A40" }}>
         <CardMedia component="img" sx={{ width: 90, height: 90 }} image={artwork} />
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography component="div" variant="h6" sx={{ mt: 1, fontWeight:"bold", fontSize:20 }}>
+          <Typography component="div" variant="h6" sx={{ mt: 1, fontWeight: "bold", fontSize: 20 }}>
             {name}
           </Typography>
-          <Typography variant="subtitle1" component="div" sx={{ color:"#ADB5BD", fontSize:12 }}>
+          <Typography variant="subtitle1" component="div" sx={{ color: "#ADB5BD", fontSize: 12 }}>
             {artist}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", mx: 1 }}>
-            <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38, color:"white" }} /> : <PlayArrowIcon sx={{ height: 38, width: 38, color:"white" }} />}</IconButton>
-            <Slider size="small" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450, color:"white" }} />
+            <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38, color: "white" }} /> : <PlayArrowIcon sx={{ height: 38, width: 38, color: "white" }} />}</IconButton>
+            <Slider size="small" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450, color: "white" }} />
           </Box>
         </Box>
       </Card>
