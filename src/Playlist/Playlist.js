@@ -36,7 +36,7 @@ function Playlist(props) {
 
   const removeTrack = (idx) => {
     const newTracks = searchResult.filter((track) => searchResult.indexOf(track) !== idx);
-    handleSearch(newTracks);
+    handleSearch(newTracks, { clearTracks: true });
   };
 
   async function handleSave() {
@@ -93,7 +93,7 @@ function Playlist(props) {
   }
 
   const handleClear = () => {
-    handleSearch([]);
+    handleSearch([], { clearTracks: true });
   };
 
   return (
@@ -101,8 +101,11 @@ function Playlist(props) {
       <header className="playlist-header">
         <input onChange={changePlaylistName} value={playlistName} placeholder="Playlist Name..." />
         <div className="button-wrapper">
-          <Button onClick={handleSave} size="small" variant="contained" 
-            sx={{ 
+          <Button
+            onClick={handleSave}
+            size="small"
+            variant="contained"
+            sx={{
               mx: 1,
               borderRadius: 7,
               backgroundColor: "#495057",
@@ -110,12 +113,16 @@ function Playlist(props) {
               borderColor: "#6C757D",
               "&:hover": {
                 backgroundColor: "#6C757D",
-              } 
-              }}>
+              },
+            }}
+          >
             Save
           </Button>
-          <Button onClick={handleClear} size="small" variant="outlined"
-            sx={{ 
+          <Button
+            onClick={handleClear}
+            size="small"
+            variant="outlined"
+            sx={{
               color: "white",
               fontWeight: "bold",
               mx: 1,
@@ -123,9 +130,10 @@ function Playlist(props) {
               borderColor: "#495057",
               "&:hover": {
                 backgroundColor: "#c10510",
-                borderColor: "#c10510"
-              } 
-              }}>
+                borderColor: "#c10510",
+              },
+            }}
+          >
             Clear
           </Button>
         </div>
@@ -135,7 +143,7 @@ function Playlist(props) {
           <h4>#</h4>
           <h4>TITLE</h4>
           <h4>ALBUM</h4>
-          <AccessTimeIcon style ={{color: 'white'}}/>
+          <AccessTimeIcon style={{ color: "white" }} />
         </div>
         <div className="track-list">
           {searchResult.map((track, idx) => (

@@ -5,7 +5,7 @@ import Playlist from "../Playlist/Playlist";
 import Musify from "../Utilities/index";
 import Login from "../Login/Login";
 import "./App.css";
-import Logo from "./logo.jpg"
+import Logo from "./logo.jpg";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -15,8 +15,12 @@ function App() {
 
   useEffect(() => setToken(Musify.getAccessToken()), []);
 
-  function handleSearch(result) {
-    setSearchResult(result);
+  function handleSearch(result, { clearTracks = false } = {}) {
+    if (clearTracks) {
+      setSearchResult(result);
+      return;
+    }
+    setSearchResult([...result, ...searchResult]);
   }
 
   function handlePlaylistName(playlistName) {
@@ -31,7 +35,7 @@ function App() {
     <Fragment>
       {token && (
         <div className="App">
-          <img src={Logo} alt="" width="320" height="130"/>
+          <img src={Logo} alt="" width="320" height="130" />
           <SearchBar token={token} onHandleSearch={handleSearch} />
           <Playlist
             data={{
@@ -43,7 +47,7 @@ function App() {
               handleTracks,
             }}
           />
-          <MediaPlayer {...tracks} />
+          <MediaPlayer {...tracks} defaultTrack={searchResult[0]} />
         </div>
       )}
       {!token && <Login />}
