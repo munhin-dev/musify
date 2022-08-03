@@ -21,7 +21,7 @@ function Track(props) {
   };
 
   return (
-    <tr className="track" onClick={handleTrack}>
+    <tr className="Track" onClick={handleTrack}>
       <td className="col-1">
         <div className="position-relative" style={{ top: "-15px" }}>
           <p className="num m-0 position-absolute">{index + 1}</p>

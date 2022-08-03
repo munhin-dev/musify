@@ -2,29 +2,27 @@ import Button from "@mui/material/Button";
 import Musify from "../../utils";
 import axios from "axios";
 
-export default function SearchButton({ selectedResult, onSearch }) {
-  const handleClick = async (selectedResult, onSearch) => {
+export default function SearchButton({ selected, onSearch }) {
+  const handleClick = async (selected, onSearch) => {
     const headers = Musify.setHeaders();
-    const [seedArtist, seedTrack] = selectedResult.reduce(
+    const [seedArtist, seedTrack] = selected.reduce(
       ([artists, tracks], result) =>
         result.type === "artist"
-          ? [[...artists, result.id], tracks]
-          : [artists, [...tracks, result.id]],
-      [[], []]
+          ? [artists + (artists.length > 0 ? "," : "") + result.id, tracks]
+          : [artists, tracks + (tracks.length > 0 ? "," : "") + result.id],
+      ["", ""]
     );
     const { data } = await axios.get(
-      `https://api.spotify.com/v1/recommendations?limit=15&seed_artists=${seedArtist.join(
-        ","
-      )}&seed_tracks=${seedTrack.join(",")}`,
+      `https://api.spotify.com/v1/recommendations?limit=15&seed_artists=${seedArtist}&seed_tracks=${seedTrack}`,
       headers
     );
-    onSearch(data.tracks.filter((track) => track.preview_url !== null));
+    onSearch(data.tracks.filter((track) => track.preview_url));
   };
 
   return (
     <Button
       variant="contained"
-      onClick={() => handleClick(selectedResult, onSearch)}
+      onClick={() => handleClick(selected, onSearch)}
       sx={{
         mx: 0.25,
         my: 2,

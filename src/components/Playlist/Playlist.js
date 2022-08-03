@@ -115,12 +115,10 @@ function Playlist(props) {
     }
   }
 
-  const handleClear = () => {
-    handleSearch([], { clearTracks: true });
-  };
+  const handleClear = () => handleSearch([], { clearTracks: true });
 
   return (
-    <section className="container my-3">
+    <section className="container my-1">
       <header className="row align-items-center justify-content-between">
         <input
           onChange={changePlaylistName}

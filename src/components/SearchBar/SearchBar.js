@@ -10,8 +10,8 @@ import axios from "axios";
 import "./SearchBar.css";
 
 export default function SearchBar({ onSearch }) {
-  let [searchResult, setSearchResult] = useState([]);
-  let [selectedResult, setSelectedResult] = useState([]);
+  let [options, setOptions] = useState([]);
+  let [selected, setSelected] = useState([]);
 
   const handleChange = async (event) => {
     const query = event.target.value.split(" ").join("%20");
@@ -21,10 +21,10 @@ export default function SearchBar({ onSearch }) {
       headers
     );
     let results = data.artists.items.concat(data.tracks.items);
-    setSearchResult(results);
+    setOptions(results);
   };
 
-  const handleSelect = (_, queries) => setSelectedResult(queries);
+  const handleSelect = (_, selections) => setSelected(selections);
 
   return (
     <div className="SearchBar container mt-1">
@@ -32,9 +32,9 @@ export default function SearchBar({ onSearch }) {
         className="col-11"
         multiple
         size="small"
-        options={searchResult}
-        getOptionDisabled={() => selectedResult.length >= 5}
-        onChange={(_, queries) => handleSelect(_, queries)}
+        options={options}
+        getOptionDisabled={() => selected.length >= 5}
+        onChange={(_, selections) => handleSelect(_, selections)}
         renderOption={(props, option) => (
           <li {...props} key={option.id}>
             <img
@@ -59,7 +59,7 @@ export default function SearchBar({ onSearch }) {
           tagValue.map((option, index) => (
             <Chip
               size={"small"}
-              sx={{ width: 100 }}
+              sx={{ width: 90 }}
               label={option.name}
               {...getTagProps({ index })}
               color={option.type === "artist" ? "primary" : "success"}
@@ -75,9 +75,7 @@ export default function SearchBar({ onSearch }) {
             outline="none"
             onChange={handleChange}
             placeholder={
-              selectedResult.length === 0
-                ? "Enter up to 5 tracks or artists"
-                : ""
+              selected.length === 0 ? "Enter up to 5 tracks or artists" : ""
             }
             InputLabelProps={{
               shrink: false,
@@ -109,8 +107,8 @@ export default function SearchBar({ onSearch }) {
           maxWidth: 750,
         }}
       />
-      <SearchButton selectedResult={selectedResult} onSearch={onSearch} />
-      <SurpriseMeButton onHandleSearch={onSearch} />
+      <SearchButton selected={selected} onSearch={onSearch} />
+      <SurpriseMeButton onSearch={onSearch} />
     </div>
   );
 }

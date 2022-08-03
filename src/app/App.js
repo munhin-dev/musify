@@ -2,9 +2,9 @@ import { useState, Fragment } from "react";
 import SearchBar from "../components/SearchBar/SearchBar";
 import MediaPlayer from "../components/MediaPlayer/MediaPlayer";
 import Playlist from "../components/Playlist/Playlist";
-import Musify from "../utils";
 import Login from "../components/Login/Login";
-import Logo from "../assets/logo.jpg";
+import Header from "../components/Header/Header";
+import Musify from "../utils";
 import "./App.css";
 
 function App() {
@@ -26,15 +26,7 @@ function App() {
     <Fragment>
       {token && (
         <div className="App">
-          <div className="container my-3">
-            <img
-              className="col-6 img-fluid"
-              src={Logo}
-              alt=""
-              style={{ maxWidth: 320 }}
-            />
-          </div>
-
+          <Header />
           <SearchBar onSearch={handleSearch} />
           <Playlist
             data={{

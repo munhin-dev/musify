@@ -20,7 +20,7 @@ thead tr:nth-child(1) th {
 }
 
 .track-container {
-  max-height: calc(100vh - 450px);
+  max-height: calc(100vh - 430px);
   overflow-y: scroll;
 }
 

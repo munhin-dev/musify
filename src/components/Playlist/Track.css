@@ -1,16 +1,12 @@
-.track {
+.Track {
   cursor: pointer;
 }
 
-.play-btn {
+.Track:hover .num {
   visibility: hidden;
 }
 
-.track:hover .num {
-  visibility: hidden;
-}
-
-.track:hover .play-btn {
+.Track:hover .play-btn {
   visibility: visible;
 }
 
@@ -18,8 +14,12 @@
   visibility: hidden;
 }
 
-.track:hover .remove-btn {
+.Track:hover .remove-btn {
   visibility: visible;
+}
+
+.play-btn {
+  visibility: hidden;
 }
 
 @media (min-width: 320px) {

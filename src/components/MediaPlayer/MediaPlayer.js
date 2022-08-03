@@ -69,7 +69,7 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
   if (!url) return;
 
   return (
-    <div className="media-player">
+    <div className="MediaPlayer">
       <Card
         sx={{
           display: "flex",
