@@ -11,7 +11,7 @@ class Musify {
       token = window.location.hash.split("&")[0].split("=")[1];
       window.history.replaceState(null, null, " ");
       Cookie.set("token", token, {
-        expires: new Date(Date.now() + 60 * 60 * 1000),
+        expires: new Date(Date.now() + 30 * 60 * 1000),
       });
     }
     return token;

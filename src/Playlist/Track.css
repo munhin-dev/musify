@@ -1,79 +1,35 @@
-/* * {
-  border: 1px solid red;
-} */
-
-.track-container {
-  height: 60px;
-  display: grid;
-  grid-template-columns: 2% 6% 43% 42% 5% 2%;
+.track {
   cursor: pointer;
-  min-width: 1250px;
-}
-
-.num-play-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.num {
-  display: block;
-  font-weight: normal;
 }
 
 .play-btn {
-  display: none;
+  visibility: hidden;
 }
 
-.num-play-wrapper:hover .num {
-  display: none;
+.track:hover .num {
+  visibility: hidden;
 }
 
-.num-play-wrapper:hover .play-btn {
-  display: flex;
-  align-items: center;
-}
-
-.name-artist-wrapper {
-  margin: auto 0;
-}
-
-.track-name {
-  margin: 0;
-  font-size: 1em;
-  text-align: left;
-  color: white;
-}
-
-p {
-  margin: auto 0;
-  text-align: left;
-  color: #ADB5BD;
-  font-size: 0.8em;
-}
-
-.track-container span {
-  margin: auto 0;
-  font-size: 1.5em;
-  font-weight: bold;
+.track:hover .play-btn {
+  visibility: visible;
 }
 
 .remove-btn {
-  margin: auto 0;
-  display: none;
+  visibility: hidden;
 }
 
-.track-container:hover .remove-btn {
-  display: flex;
-  align-items: center;
+.track:hover .remove-btn {
+  visibility: visible;
 }
 
-.track-container {
-  padding-bottom: 15px;
-  padding-top: 9px;
-  border-bottom: 1px solid gray;
+@media (min-width: 320px) {
+  .remove-btn {
+    visibility: visible;
+  }
 }
 
-.track-container:hover {
-  background-color: #343A40;
+@media (min-width: 760px) {
+  .remove-btn {
+    visibility: hidden;
+  }
 }

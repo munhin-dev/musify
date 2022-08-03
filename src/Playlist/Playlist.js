@@ -7,7 +7,14 @@ import Swal from "sweetalert2";
 import "./Playlist.css";
 
 function Playlist(props) {
-  const { token, searchResult, playlistName, handlePlaylistName, handleSearch, handleTracks } = props.data;
+  const {
+    token,
+    searchResult,
+    playlistName,
+    handlePlaylistName,
+    handleSearch,
+    handleTracks,
+  } = props.data;
 
   useEffect(() => {
     const headers = {
@@ -30,12 +37,14 @@ function Playlist(props) {
     // eslint-disable-next-line
   }, []);
 
-  const changePlaylistName = (e) => {
-    handlePlaylistName(e.target.value);
+  const changePlaylistName = (event) => {
+    handlePlaylistName(event.target.value);
   };
 
-  const removeTrack = (idx) => {
-    const newTracks = searchResult.filter((track) => searchResult.indexOf(track) !== idx);
+  const removeTrack = (index) => {
+    const newTracks = searchResult.filter(
+      (track) => searchResult.indexOf(track) !== index
+    );
     handleSearch(newTracks, { clearTracks: true });
   };
 
@@ -64,23 +73,37 @@ function Playlist(props) {
 
     try {
       if (!playlistName) throw new Error("Playlist name cannot be empty.");
-      await axios.get("https://api.spotify.com/v1/me", headers).then((response) => {
-        userId = response.data.id;
-      });
-
-      await axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, requestBody, headers).then((response) => {
-        playlistId = response.data.id;
-      });
-
-      await axios.post(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${trackURIs}`, {}, headers).then((response) => {
-        Swal.fire({
-          icon: "success",
-          title: "Playlist Saved",
-          text: "Check it out on Spotify!",
-          showConfirmButton: false,
-          timer: 1500,
+      await axios
+        .get("https://api.spotify.com/v1/me", headers)
+        .then((response) => {
+          userId = response.data.id;
         });
-      });
+
+      await axios
+        .post(
+          `https://api.spotify.com/v1/users/${userId}/playlists`,
+          requestBody,
+          headers
+        )
+        .then((response) => {
+          playlistId = response.data.id;
+        });
+
+      await axios
+        .post(
+          `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${trackURIs}`,
+          {},
+          headers
+        )
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Playlist Saved",
+            text: "Check it out on Spotify!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -97,23 +120,25 @@ function Playlist(props) {
   };
 
   return (
-    <section className="playlist-container">
-      <header className="playlist-header">
-        <input onChange={changePlaylistName} value={playlistName} placeholder="Playlist Name..." />
-        <div className="button-wrapper">
+    <section className="container my-3">
+      <header className="row align-items-center justify-content-between">
+        <input
+          onChange={changePlaylistName}
+          value={playlistName}
+          placeholder="Playlist Name..."
+          className="col"
+        />
+        <div className="col-auto">
           <Button
             onClick={handleSave}
             size="small"
             variant="contained"
             sx={{
-              mx: 1,
               borderRadius: 7,
               backgroundColor: "#495057",
               fontWeight: "bold",
               borderColor: "#6C757D",
-              "&:hover": {
-                backgroundColor: "#6C757D",
-              },
+              "&:hover": { backgroundColor: "#6C757D" },
             }}
           >
             Save
@@ -125,7 +150,7 @@ function Playlist(props) {
             sx={{
               color: "white",
               fontWeight: "bold",
-              mx: 1,
+              mx: 0.5,
               borderRadius: 7,
               borderColor: "#495057",
               "&:hover": {
@@ -138,18 +163,36 @@ function Playlist(props) {
           </Button>
         </div>
       </header>
-      <div className="list-container">
-        <div className="list-header">
-          <h4>#</h4>
-          <h4>TITLE</h4>
-          <h4>ALBUM</h4>
-          <AccessTimeIcon style={{ color: "white" }} />
-        </div>
-        <div className="track-list">
-          {searchResult.map((track, idx) => (
-            <Track key={idx} data={{ track, idx, removeTrack, handleTracks }} />
-          ))}
-        </div>
+
+      <div className="track-container">
+        <table className="table table-dark table-hover align-middle text-start">
+          <thead>
+            <tr>
+              <th className="col-1">#</th>
+              <th className="col-10 col-md-6">TITLE</th>
+              <th className="col-3">
+                <div className="d-none d-md-block">ALBUM</div>
+              </th>
+              <th className="col-1">
+                <div className="d-none d-md-block">
+                  <AccessTimeIcon style={{ color: "white", p: 0 }} />
+                </div>
+              </th>
+              <th className="col-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchResult.map((track, index) => (
+              <Track
+                key={index}
+                track={track}
+                index={index}
+                onRemoveTrack={removeTrack}
+                onHandleTrack={handleTracks}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );

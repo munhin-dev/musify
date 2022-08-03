@@ -1,69 +1,88 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Cookie from 'js-cookie'
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Cookie from "js-cookie";
 
-const axios = require('axios')
+const axios = require("axios");
 
-async function getUserRecommendation(artistLimit, trackLimit){
+async function getUserRecommendation(artistLimit, trackLimit) {
   const token = Cookie.get("token");
   const headers = {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
   };
-  let data = []
-  let seedArtist = []
-  let seedTrack = []
+  let data = [];
+  let seedArtist = [];
+  let seedTrack = [];
 
-  await axios.get(`https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=${artistLimit}`, headers).then((response) => {
-    response.data.items.forEach(result => data.push(result))
-  })
+  await axios
+    .get(
+      `https://api.spotify.com/v1/me/top/artists?time_range=medium_term&limit=${artistLimit}`,
+      headers
+    )
+    .then((response) => {
+      response.data.items.forEach((result) => data.push(result));
+    });
 
-  await axios.get(`https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=${trackLimit}`, headers).then((response) => {
-      response.data.items.forEach(result => data.push(result))
-  })
+  await axios
+    .get(
+      `https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=${trackLimit}`,
+      headers
+    )
+    .then((response) => {
+      response.data.items.forEach((result) => data.push(result));
+    });
 
-  data.forEach(result => {
-    if (result.type === 'artist'){
-      seedArtist.push(result.id)
+  data.forEach((result) => {
+    if (result.type === "artist") {
+      seedArtist.push(result.id);
     } else {
-      seedTrack.push(result.id)
+      seedTrack.push(result.id);
     }
-  })
+  });
 
-  let result = await axios.get(`https://api.spotify.com/v1/recommendations?limit=15&seed_artists=${seedArtist.join(',')}&seed_tracks=${seedTrack.join(',')}`, headers)
+  let result = await axios.get(
+    `https://api.spotify.com/v1/recommendations?limit=15&seed_artists=${seedArtist.join(
+      ","
+    )}&seed_tracks=${seedTrack.join(",")}`,
+    headers
+  );
 
-  return result.data.tracks
+  return result.data.tracks;
 }
 
-function handleClick(onHandleSearch){
-  let randomArtistLimit = Math.floor(Math.random() *  5 + 1)
-  let randomTrackLimit = 5 - randomArtistLimit
-  let userRecommendation = getUserRecommendation(randomArtistLimit, randomTrackLimit)
-  userRecommendation.then((response) => onHandleSearch(response.filter(track => track.preview_url !== null)))
+function handleClick(onHandleSearch) {
+  let randomArtistLimit = Math.floor(Math.random() * 5 + 1);
+  let randomTrackLimit = 5 - randomArtistLimit;
+  let userRecommendation = getUserRecommendation(
+    randomArtistLimit,
+    randomTrackLimit
+  );
+  userRecommendation.then((response) =>
+    onHandleSearch(response.filter((track) => track.preview_url !== null))
+  );
 }
 
-export default function SearchButton({onHandleSearch}) {
+export default function SurpriseMeButton({ onHandleSearch }) {
   return (
-    <Button 
-    variant="contained"
-    onClick={() => handleClick(onHandleSearch)} 
-    sx={{
-      marginTop: 4,
-      paddingLeft: 2.2,
-      paddingRight: 2.2,
-      marginLeft: 5,
-      color: "white",
-      borderRadius: 5,
-      fontWeight: "bold",
-      backgroundColor: "#495057",
-      borderColor: "#6C757D",
-      "&:hover": {
-        backgroundColor: "#6C757D",
-      }
-    }}>
+    <Button
+      variant="contained"
+      onClick={() => handleClick(onHandleSearch)}
+      sx={{
+        mx: 0.25,
+        my: 1,
+        color: "white",
+        borderRadius: 5,
+        fontWeight: "bold",
+        backgroundColor: "#495057",
+        borderColor: "#6C757D",
+        "&:hover": {
+          backgroundColor: "#6C757D",
+        },
+      }}
+    >
       Surprise Me
     </Button>
   );

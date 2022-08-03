@@ -19,10 +19,10 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
   let artwork = album?.images[0].url;
   let artist = (artists || [])[0]?.name;
 
+  Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
+
   useEffect(() => {
     setAudio(new Audio(url));
-    Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
-    // eslint-disable-next-line
   }, [url]);
 
   useEffect(() => {
@@ -31,13 +31,17 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
     };
     audio.addEventListener("ended", () => {
       setPlaying(false);
+      setProgress(0);
     });
     audio.addEventListener("timeupdate", handleUpdate);
-    renderCount.current > 2 ? audio.play().then(() => setPlaying(true)) : renderCount.current++;
+    renderCount.current > 1
+      ? audio.play().then(() => setPlaying(true))
+      : renderCount.current++;
     return () => {
       audio.removeEventListener("ended", () => setPlaying(false));
       audio.removeEventListener("timeupdate", handleUpdate);
       audio.pause();
+      setPlaying(false);
     };
   }, [audio]);
 
@@ -66,18 +70,68 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   return (
     <div className="media-player">
-      <Card sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", backgroundColor: "#343A40" }}>
-        <CardMedia component="img" sx={{ width: 90, height: 90 }} image={artwork} />
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Typography component="div" variant="h6" sx={{ mt: 1, fontWeight: "bold", fontSize: 20 }}>
-            {name}
-          </Typography>
-          <Typography variant="subtitle1" component="div" sx={{ color: "#ADB5BD", fontSize: 12 }}>
+      <Card
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: 110,
+          backgroundColor: "#343A40",
+        }}
+      >
+        <CardMedia component="img" sx={{ width: 90 }} image={artwork} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "50%",
+            maxWidth: 450,
+            mx: 1,
+            zIndex: 1,
+          }}
+        >
+          <div style={{ overflow: "hidden" }}>
+            <Typography
+              className={playing && name.length > 30 ? "auto-scroll" : ""}
+              component="div"
+              variant="h6"
+              sx={{
+                mt: 1,
+                fontWeight: "bold",
+                fontSize: "1em",
+                height: 20,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {name}
+            </Typography>
+          </div>
+
+          <Typography
+            variant="subtitle1"
+            component="div"
+            sx={{ color: "#ADB5BD", fontSize: "0.8em" }}
+          >
             {artist}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", mx: 1 }}>
-            <IconButton onClick={handlePlaying}>{playing ? <PauseIcon sx={{ height: 38, width: 38, color: "white" }} /> : <PlayArrowIcon sx={{ height: 38, width: 38, color: "white" }} />}</IconButton>
-            <Slider size="small" value={progress} onChange={handleChange} onChangeCommitted={handleCommit} min={0} max={100} sx={{ width: 450, color: "white" }} />
+            <IconButton onClick={handlePlaying}>
+              {playing ? (
+                <PauseIcon sx={{ color: "white" }} />
+              ) : (
+                <PlayArrowIcon sx={{ color: "white" }} />
+              )}
+            </IconButton>
+            <Slider
+              size="small"
+              value={progress}
+              onChange={handleChange}
+              onChangeCommitted={handleCommit}
+              min={0}
+              max={100}
+              sx={{ color: "white" }}
+            />
           </Box>
         </Box>
       </Card>

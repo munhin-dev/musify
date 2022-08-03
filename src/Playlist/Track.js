@@ -1,49 +1,60 @@
-import Stack from "@mui/material/Stack";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import "./Track.css";
 
 function Track(props) {
-  const { track, idx, removeTrack, handleTracks } = props.data;
+  const { track, index, onRemoveTrack, onHandleTrack } = props;
   const runtime = (ms) => {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
 
+  const handleTrack = (event) => {
+    if (event.target.className === "block") return;
+    onHandleTrack(track);
+  };
+
+  const handleRemove = (event) => {
+    onRemoveTrack(index);
+    event.stopPropagation();
+  };
+
   return (
-    <Stack>
-      <div
-        className="track-container"
-        onClick={(event) => {
-          if (event.target.className === "block") return;
-          handleTracks(track);
-        }}
-      >
-        <div className="num-play-wrapper">
-          <h4 className="num">{idx + 1}</h4>
-          <div className="play-btn">
-            <PlayArrowIcon style={{color: "white"}}/>
+    <tr className="track" onClick={handleTrack}>
+      <td className="col-1">
+        <div className="position-relative" style={{ top: "-15px" }}>
+          <p className="num m-0 position-absolute">{index + 1}</p>
+          <div className="play-btn position-absolute">
+            <PlayArrowIcon sx={{ color: "white" }} />
           </div>
         </div>
-        <img src={track.album.images[2].url} alt="" />
-        <div className="name-artist-wrapper">
-          <h5 className="track-name">{track.name}</h5>
-          <p>{track.artists[0].name}</p>
+      </td>
+      <td className="col-11 col-md-6">
+        <div className="d-flex align-items-center">
+          <img className="cover-art" src={track.album.images[2].url} alt="" />
+          <div className="mx-2 text-start">
+            <p className="mb-0">{track.name}</p>
+            <h6 className="text-muted mb-0">
+              <small>{track.artists[0].name}</small>
+            </h6>
+          </div>
         </div>
-        <p>{track.album.name}</p>
-        <p>{runtime(track.duration_ms)}</p>
-        <div className="remove-btn">
-          <RemoveCircleOutlineIcon
-            onClick={(event) => {
-              removeTrack(idx);
-              event.stopPropagation();
-            }}
-            sx={{ margin: `auto 0`, color: '#ADB5BD' }}
-          />
-        </div>
-      </div>
-    </Stack>
+      </td>
+
+      <td className="col-3">
+        <div className="d-none d-md-block">{track.album.name}</div>
+      </td>
+      <td className="col-1">
+        <div className="d-none d-md-block">{runtime(track.duration_ms)}</div>
+      </td>
+      <td className="col-1 remove-btn">
+        <RemoveCircleOutlineIcon
+          onClick={handleRemove}
+          sx={{ color: "#ADB5BD" }}
+        />
+      </td>
+    </tr>
   );
 }
 

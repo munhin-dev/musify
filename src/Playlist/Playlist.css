@@ -1,17 +1,3 @@
-.playlist-container {
-  padding: 0 1vw;
-  min-width: 1250px;
-  height: calc(100vh - 450px)
-}
-
-.playlist-header {
-  margin: 1vh 0;
-  padding: 1vh 0;
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid gray;
-}
-
 input {
   width: 100%;
   padding: 5px;
@@ -23,45 +9,32 @@ input {
   border: none;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
-.list-header {
-  padding-left: 0.8vw;
-  padding-bottom: 1vh;
-  display: grid;
-  grid-template-columns: 1.5% 49.2% 41.8% 7%;
-  border-bottom: 1px solid gray;
-  min-width: 1250px;
+thead tr:nth-child(1) th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
-.track-list {
+.track-container {
+  max-height: calc(100vh - 450px);
   overflow-y: scroll;
-  height: 100%;
 }
 
-.track-list::-webkit-scrollbar {
+.track-container::-webkit-scrollbar {
   background-color: #212529;
   width: 10px;
 }
 
-.track-list::-webkit-scrollbar-thumb {
+.track-container::-webkit-scrollbar-thumb {
   width: 10px;
-  background-color: #343A40;
-  border-radius: 10px; 
+  background-color: #343a40;
+  border-radius: 10px;
 }
 
-.list-container {
-  height: 87%;
-}
-
-h4 {
-  margin: 0;
-  text-align: left;
-  color: white;
-}
-
-.button-wrapper{
-  display: flex;
+.cover-art {
+  object-fit: scale-down;
 }

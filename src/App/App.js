@@ -4,8 +4,8 @@ import MediaPlayer from "../MediaPlayer/MediaPlayer";
 import Playlist from "../Playlist/Playlist";
 import Musify from "../Utilities/index";
 import Login from "../Login/Login";
-import "./App.css";
 import Logo from "./logo.jpg";
+import "./App.css";
 
 function App() {
   const [token, setToken] = useState(null);

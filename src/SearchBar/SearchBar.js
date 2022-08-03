@@ -1,4 +1,3 @@
-import * as React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
@@ -29,10 +28,8 @@ export default function SearchBar(props) {
         `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=8`,
         headers
       )
-      .then((response) => {
-        let data = response.data.artists.items.concat(
-          response.data.tracks.items
-        );
+      .then((res) => {
+        let data = res.data.artists.items.concat(res.data.tracks.items);
         setSearchResult(data);
       })
       .catch((err) => console.log(err));
@@ -43,12 +40,13 @@ export default function SearchBar(props) {
   }
 
   return (
-    <div>
+    <div className="container">
       <Autocomplete
+        className="col-11 rounded"
         multiple
         id="tags-standard"
         options={searchResult}
-        getOptionDisabled={(option) => selectedResult.length >= 5}
+        getOptionDisabled={() => selectedResult.length >= 5}
         onChange={(_, val) => handleTxtChange(_, val)}
         renderOption={(props, option) => (
           <li {...props}>
@@ -85,7 +83,7 @@ export default function SearchBar(props) {
           <TextField
             className="inputBox"
             {...params}
-            outline='none'
+            outline="none"
             onChange={handleChange}
             placeholder="Enter up to 5 tracks or artists"
             InputLabelProps={{
@@ -93,30 +91,29 @@ export default function SearchBar(props) {
               sx: {
                 color: "#CAD2C5",
                 [`&.${inputLabelClasses.shrink}`]: {
-                  color: "orange"
-                }
-              }
+                  color: "orange",
+                },
+              },
             }}
-            sx={{ 
-              // borderRadius: 5,
-              backgroundColor: 'white'
+            sx={{
+              backgroundColor: "white",
             }}
           />
         )}
         sx={{
-          width: 4 / 10,
           m: "auto",
           "& .MuiAutocomplete-inputRoot": {
-          "& .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "white",
+            },
           },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-          },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-          }
-  }
+          maxWidth: 750,
         }}
       />
       <SearchButton
