@@ -19,10 +19,10 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
   let artwork = album?.images[0].url;
   let artist = (artists || [])[0]?.name;
 
-  Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
-
   useEffect(() => {
     setAudio(new Audio(url));
+    Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
+    // eslint-disable-next-line
   }, [url]);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
         >
           <div style={{ overflow: "hidden" }}>
             <Typography
-              className={playing && name.length > 30 ? "auto-scroll" : ""}
+              className={playing && name.length > 28 ? "auto-scroll" : ""}
               component="div"
               variant="h6"
               sx={{
@@ -115,12 +115,16 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
           >
             {artist}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", mx: 1 }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <IconButton onClick={handlePlaying}>
               {playing ? (
-                <PauseIcon sx={{ color: "white" }} />
+                <PauseIcon
+                  sx={{ color: "white", width: "1.5em", height: "1.5em" }}
+                />
               ) : (
-                <PlayArrowIcon sx={{ color: "white" }} />
+                <PlayArrowIcon
+                  sx={{ color: "white", width: "1.5em", height: "1.5em" }}
+                />
               )}
             </IconButton>
             <Slider

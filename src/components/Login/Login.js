@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { loginUrl } from "../Utilities";
+import { loginUrl } from "../../utils";
 import "./Login.css";
 
 export default function Login() {

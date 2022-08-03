@@ -1,55 +1,42 @@
+import { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
-import "./SearchBar.css";
 import SearchButton from "./SearchButton";
 import SurpriseMeButton from "./SurpriseMeButton";
 import { inputLabelClasses } from "@mui/material/InputLabel";
+import Musify from "../../utils";
+import axios from "axios";
+import "./SearchBar.css";
 
-const axios = require("axios");
-
-export default function SearchBar(props) {
+export default function SearchBar({ onSearch }) {
   let [searchResult, setSearchResult] = useState([]);
   let [selectedResult, setSelectedResult] = useState([]);
 
-  function handleChange(e) {
-    const query = e.target.value.split(" ").join("%20");
-    const token = props.token;
-    const headers = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    axios
-      .get(
-        `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=8`,
-        headers
-      )
-      .then((res) => {
-        let data = res.data.artists.items.concat(res.data.tracks.items);
-        setSearchResult(data);
-      })
-      .catch((err) => console.log(err));
-  }
+  const handleChange = async (event) => {
+    const query = event.target.value.split(" ").join("%20");
+    const headers = Musify.setHeaders();
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/search?q=${query}&type=track%2Cartist&limit=8`,
+      headers
+    );
+    let results = data.artists.items.concat(data.tracks.items);
+    setSearchResult(results);
+  };
 
-  function handleTxtChange(_, newValue) {
-    setSelectedResult(newValue);
-  }
+  const handleSelect = (_, queries) => setSelectedResult(queries);
 
   return (
-    <div className="container">
+    <div className="SearchBar container mt-1">
       <Autocomplete
-        className="col-11 rounded"
+        className="col-11"
         multiple
-        id="tags-standard"
+        size="small"
         options={searchResult}
         getOptionDisabled={() => selectedResult.length >= 5}
-        onChange={(_, val) => handleTxtChange(_, val)}
+        onChange={(_, queries) => handleSelect(_, queries)}
         renderOption={(props, option) => (
-          <li {...props}>
+          <li {...props} key={option.id}>
             <img
               alt=""
               src={
@@ -71,6 +58,8 @@ export default function SearchBar(props) {
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
             <Chip
+              size={"small"}
+              sx={{ width: 100 }}
               label={option.name}
               {...getTagProps({ index })}
               color={option.type === "artist" ? "primary" : "success"}
@@ -85,7 +74,11 @@ export default function SearchBar(props) {
             {...params}
             outline="none"
             onChange={handleChange}
-            placeholder="Enter up to 5 tracks or artists"
+            placeholder={
+              selectedResult.length === 0
+                ? "Enter up to 5 tracks or artists"
+                : ""
+            }
             InputLabelProps={{
               shrink: false,
               sx: {
@@ -104,23 +97,20 @@ export default function SearchBar(props) {
           m: "auto",
           "& .MuiAutocomplete-inputRoot": {
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
+              border: "none",
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
+              border: "none",
             },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "white",
+              border: "none",
             },
           },
           maxWidth: 750,
         }}
       />
-      <SearchButton
-        selectedResult={selectedResult}
-        onHandleSearch={props.onHandleSearch}
-      />
-      <SurpriseMeButton onHandleSearch={props.onHandleSearch} />
+      <SearchButton selectedResult={selectedResult} onSearch={onSearch} />
+      <SurpriseMeButton onHandleSearch={onSearch} />
     </div>
   );
 }

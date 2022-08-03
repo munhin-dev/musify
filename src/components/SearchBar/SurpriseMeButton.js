@@ -1,18 +1,11 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import Cookie from "js-cookie";
+import Musify from "../../utils";
 
 const axios = require("axios");
 
 async function getUserRecommendation(artistLimit, trackLimit) {
-  const token = Cookie.get("token");
-  const headers = {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const headers = Musify.setHeaders();
   let data = [];
   let seedArtist = [];
   let seedTrack = [];
@@ -72,7 +65,7 @@ export default function SurpriseMeButton({ onHandleSearch }) {
       onClick={() => handleClick(onHandleSearch)}
       sx={{
         mx: 0.25,
-        my: 1,
+        my: 2,
         color: "white",
         borderRadius: 5,
         fontWeight: "bold",
