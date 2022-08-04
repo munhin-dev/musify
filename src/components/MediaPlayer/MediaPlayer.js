@@ -40,7 +40,8 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
       audio.removeEventListener("ended", handleEnd);
       audio.removeEventListener("timeupdate", handleUpdate);
       setPlaying(false);
-      audio.pause();
+      audio.pause()
+      
     };
   }, [audio]);
 

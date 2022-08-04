@@ -111,23 +111,19 @@ function Playlist({ onAudioChange, onTracksChange, tracks }) {
 
       <div className="track-container">
         <table className="table table-dark table-hover align-middle text-start">
-          <thead >
+          <thead>
             <tr>
-              <th className="col-1 header" scope="col">
-                #
-              </th>
-              <th className="col-10 col-md-6 header" scope="col">
-                TITLE
-              </th>
-              <th className="col-3 header" scope="col">
+              <th className="col-1">#</th>
+              <th className="col-10 col-md-6">TITLE</th>
+              <th className="col-3">
                 <div className="d-none d-md-block">ALBUM</div>
               </th>
-              <th className="col-1 header" scope="col">
+              <th className="col-1">
                 <div className="d-none d-md-block">
                   <AccessTimeIcon style={{ color: "white", p: 0 }} />
                 </div>
               </th>
-              <th className="col-1 header" scope="col"></th>
+              <th className="col-1"></th>
             </tr>
           </thead>
           <tbody>

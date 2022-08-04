@@ -35,6 +35,29 @@ thead tr:nth-child(1) th {
 }
 
 .track-container {
-  max-height: calc(100vh - 480px);
   overflow-y: scroll;
+}
+
+@media (max-width: 575px) {
+  .track-container {
+    max-height: calc(100vh - 380px -env(safe-area-inset-bottom));
+  }
+}
+
+@media (min-width: 576px) {
+  .track-container {
+    max-height: calc(100vh - 400px);
+  }
+}
+
+@media (min-width: 768px) {
+  .track-container {
+    max-height: calc(100vh - 420px);
+  }
+}
+
+@media (min-width: 992px) {
+  .track-container {
+    max-height: calc(100vh - 440px);
+  }
 }

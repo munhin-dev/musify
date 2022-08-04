@@ -15,6 +15,8 @@
     "js-cookie": "^3.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-full-height": "^1.2.3",
+    "react-height": "^3.0.2",
     "react-scripts": "5.0.1",
     "sweetalert2": "^11.4.22",
     "web-vitals": "^2.1.4"

@@ -36,8 +36,8 @@ function App() {
     <div className="App">
       {Musify.getAccessToken() ? (
         <Fragment>
-          <Header />
-          <SearchBar onTracksChange={handleTracksChange} />
+            <Header />
+            <SearchBar onTracksChange={handleTracksChange} />
           <Playlist
             onAudioChange={handleAudioChange}
             onTracksChange={handleTracksChange}
