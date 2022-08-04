@@ -15,12 +15,8 @@ input:focus {
 
 thead tr:nth-child(1) th {
   position: sticky;
-  top: 0;
+  top: -2px;
   z-index: 1;
-}
-
-.track-container {
-  overflow-y: scroll;
 }
 
 .track-container::-webkit-scrollbar {
@@ -38,26 +34,7 @@ thead tr:nth-child(1) th {
   object-fit: scale-down;
 }
 
-@media (max-width: 575px) {
-  .track-container {
-    max-height: calc(100vh - 370px);
-  }
-}
-
-@media (min-width: 576px) {
-  .track-container {
-    max-height: calc(100vh - 400px);
-  }
-}
-
-@media (min-width: 768px) {
-  .track-container {
-    max-height: calc(100vh - 415px);
-  }
-}
-
-@media (min-width: 992px) {
-  .track-container {
-    max-height: calc(100vh - 425px);
-  }
+.track-container {
+  max-height: calc(100vh - 480px);
+  overflow-y: scroll;
 }

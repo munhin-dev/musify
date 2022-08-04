@@ -33,3 +33,9 @@
     visibility: hidden;
   }
 }
+
+@media (hover: hover) and (pointer: fine) {
+  .remove-btn {
+    visibility: visible;
+  }
+}

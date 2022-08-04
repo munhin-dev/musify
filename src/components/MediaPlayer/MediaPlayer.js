@@ -27,19 +27,20 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
     const handleUpdate = () => {
       setProgress((audio.currentTime / audio.duration) * 100);
     };
-    audio.addEventListener("ended", () => {
+    const handleEnd = () => {
       setPlaying(false);
       setProgress(0);
-    });
+    };
+    audio.addEventListener("ended", handleEnd);
     audio.addEventListener("timeupdate", handleUpdate);
     renderCount.current > 1
       ? audio.play().then(() => setPlaying(true))
       : renderCount.current++;
     return () => {
-      audio.removeEventListener("ended", () => setPlaying(false));
+      audio.removeEventListener("ended", handleEnd);
       audio.removeEventListener("timeupdate", handleUpdate);
-      audio.pause();
       setPlaying(false);
+      audio.pause();
     };
   }, [audio]);
 
