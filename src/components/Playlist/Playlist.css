@@ -15,7 +15,7 @@ input:focus {
 
 thead tr:nth-child(1) th {
   position: sticky;
-  top: -2px;
+  top: 0;
   z-index: 1;
 }
 
