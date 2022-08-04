@@ -15,3 +15,7 @@
 .inputBox .MuiOutlinedInput-root {
   border-radius: 50px;
 }
+
+.autocomplete::-webkit-scrollbar {
+  display: none;
+}

@@ -19,6 +19,12 @@
   animation: scroll-horizontal 5s linear infinite;
 }
 
+.MuiSlider-thumb.Mui-focusVisible,
+.MuiSlider-thumb:hover,
+.MuiSlider-thumb.Mui-active {
+  box-shadow: none !important;
+}
+
 @keyframes scroll-horizontal {
   from {
     transform: translateX(0%);

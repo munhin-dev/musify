@@ -2,7 +2,7 @@ import Button from "@mui/material/Button";
 import Musify from "../../utils";
 const axios = require("axios");
 
-export default function SurpriseMeButton({ onSearch }) {
+export default function SurpriseMeButton({ onTracksChange }) {
   const getRecommendation = async (artistLimit, trackLimit) => {
     const headers = Musify.setHeaders();
     const getArtists = axios.get(
@@ -39,10 +39,10 @@ export default function SurpriseMeButton({ onSearch }) {
   return (
     <Button
       variant="contained"
-      onClick={() => handleClick(onSearch)}
+      onClick={() => handleClick(onTracksChange)}
       sx={{
         mx: 0.25,
-        my: 2,
+        my: 1.5,
         color: "white",
         borderRadius: 5,
         fontWeight: "bold",

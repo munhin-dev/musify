@@ -20,7 +20,6 @@ thead tr:nth-child(1) th {
 }
 
 .track-container {
-  max-height: calc(100vh - 430px);
   overflow-y: scroll;
 }
 
@@ -37,4 +36,28 @@ thead tr:nth-child(1) th {
 
 .cover-art {
   object-fit: scale-down;
+}
+
+@media (max-width: 575px) {
+  .track-container {
+    max-height: calc(100vh - 370px);
+  }
+}
+
+@media (min-width: 576px) {
+  .track-container {
+    max-height: calc(100vh - 400px);
+  }
+}
+
+@media (min-width: 768px) {
+  .track-container {
+    max-height: calc(100vh - 415px);
+  }
+}
+
+@media (min-width: 992px) {
+  .track-container {
+    max-height: calc(100vh - 425px);
+  }
 }

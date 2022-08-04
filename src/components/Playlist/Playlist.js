@@ -1,109 +1,58 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Track from "./Track";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Button from "@mui/material/Button";
 import Swal from "sweetalert2";
+import Musify from "../../utils";
 import "./Playlist.css";
 
-function Playlist(props) {
-  const {
-    token,
-    searchResult,
-    playlistName,
-    handlePlaylistName,
-    handleSearch,
-    handleTracks,
-  } = props.data;
+function Playlist({ onAudioChange, onTracksChange, tracks }) {
+  const [name, setName] = useState("");
 
-  useEffect(() => {
-    const headers = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    axios
-      .get("https://api.spotify.com/v1/me/top/tracks?limit=15", headers)
-      .then((response) => {
-        const newTracks = response.data.items;
-        handleSearch(newTracks.filter((track) => track.preview_url !== null));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    // eslint-disable-next-line
-  }, []);
-
-  const changePlaylistName = (event) => {
-    handlePlaylistName(event.target.value);
+  const handleChange = (event) => setName(event.target.value);
+  const handleRemove = (id) => {
+    const newTracks = tracks.filter((track) => track.id !== id);
+    onTracksChange(newTracks, { clearTracks: true });
   };
-
-  const removeTrack = (index) => {
-    const newTracks = searchResult.filter(
-      (track) => searchResult.indexOf(track) !== index
-    );
-    handleSearch(newTracks, { clearTracks: true });
-  };
-
-  async function handleSave() {
-    const headers = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
+  const handleClear = () => onTracksChange([], { clearTracks: true });
+  const handleSave = async () => {
+    const headers = Musify.setHeaders();
     const requestBody = {
-      name: `${playlistName}`,
+      name: `${name}`,
       description: "",
       public: false,
     };
-
-    const trackURIs = searchResult
+    const trackURIs = tracks
       .map((result) => result.uri)
       .join("%2C")
       .split(":")
       .join("%3A");
 
-    let userId, playlistId;
-
     try {
-      if (!playlistName) throw new Error("Playlist name cannot be empty.");
-      await axios
-        .get("https://api.spotify.com/v1/me", headers)
-        .then((response) => {
-          userId = response.data.id;
-        });
-
-      await axios
-        .post(
-          `https://api.spotify.com/v1/users/${userId}/playlists`,
-          requestBody,
-          headers
-        )
-        .then((response) => {
-          playlistId = response.data.id;
-        });
-
-      await axios
-        .post(
-          `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${trackURIs}`,
-          {},
-          headers
-        )
-        .then(() => {
-          Swal.fire({
-            icon: "success",
-            title: "Playlist Saved",
-            text: "Check it out on Spotify!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        });
+      if (!name) throw new Error("Playlist name cannot be empty.");
+      const {
+        data: { id: userId },
+      } = await axios.get("https://api.spotify.com/v1/me", headers);
+      const {
+        data: { id: playlistId },
+      } = await axios.post(
+        `https://api.spotify.com/v1/users/${userId}/playlists`,
+        requestBody,
+        headers
+      );
+      await axios.post(
+        `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${trackURIs}`,
+        {},
+        headers
+      );
+      Swal.fire({
+        icon: "success",
+        title: "Playlist Saved",
+        text: "Check it out on Spotify!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -113,16 +62,14 @@ function Playlist(props) {
         timer: 1500,
       });
     }
-  }
-
-  const handleClear = () => handleSearch([], { clearTracks: true });
+  };
 
   return (
     <section className="container my-1">
       <header className="row align-items-center justify-content-between">
         <input
-          onChange={changePlaylistName}
-          value={playlistName}
+          onChange={handleChange}
+          value={name}
           placeholder="Playlist Name..."
           className="col"
         />
@@ -180,13 +127,13 @@ function Playlist(props) {
             </tr>
           </thead>
           <tbody>
-            {searchResult.map((track, index) => (
+            {tracks.map((track, index) => (
               <Track
-                key={index}
+                key={track.id}
                 track={track}
+                onRemove={handleRemove}
                 index={index}
-                onRemoveTrack={removeTrack}
-                onHandleTrack={handleTracks}
+                onAudioChange={onAudioChange}
               />
             ))}
           </tbody>

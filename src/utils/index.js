@@ -30,6 +30,14 @@ const Musify = {
       },
     };
   },
+
+  saveLastPlay(url, artist, artwork, name) {
+    Cookie.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
+  },
+
+  getLastPlay() {
+    return Cookie.get("lastPlayed");
+  },
 };
 
 export default Musify;

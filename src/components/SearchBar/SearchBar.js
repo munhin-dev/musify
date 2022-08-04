@@ -9,7 +9,7 @@ import Musify from "../../utils";
 import axios from "axios";
 import "./SearchBar.css";
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onTracksChange }) {
   let [options, setOptions] = useState([]);
   let [selected, setSelected] = useState([]);
 
@@ -29,7 +29,7 @@ export default function SearchBar({ onSearch }) {
   return (
     <div className="SearchBar container mt-1">
       <Autocomplete
-        className="col-11"
+        className="col-11 autocomplete"
         multiple
         size="small"
         options={options}
@@ -59,7 +59,6 @@ export default function SearchBar({ onSearch }) {
           tagValue.map((option, index) => (
             <Chip
               size={"small"}
-              sx={{ width: 90 }}
               label={option.name}
               {...getTagProps({ index })}
               color={option.type === "artist" ? "primary" : "success"}
@@ -105,10 +104,13 @@ export default function SearchBar({ onSearch }) {
             },
           },
           maxWidth: 750,
+          maxHeight: 40,
+          overflow: "hidden",
+          overflowY: "scroll",
         }}
       />
-      <SearchButton selected={selected} onSearch={onSearch} />
-      <SurpriseMeButton onSearch={onSearch} />
+      <SearchButton selected={selected} onTracksChange={onTracksChange} />
+      <SurpriseMeButton onTracksChange={onTracksChange} />
     </div>
   );
 }

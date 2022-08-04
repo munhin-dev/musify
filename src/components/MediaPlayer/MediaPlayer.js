@@ -7,8 +7,8 @@ import Typography from "@mui/material/Typography";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import Slider from "@mui/material/Slider";
+import Musify from "../../utils";
 import "./MediaPlayer.css";
-import Cookies from "js-cookie";
 
 function MediaPlayer({ preview_url: url, artists, name, album }) {
   const [audio, setAudio] = useState(new Audio());
@@ -21,8 +21,6 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   useEffect(() => {
     setAudio(new Audio(url));
-    Cookies.set("lastPlayed", JSON.stringify({ url, artist, artwork, name }));
-    // eslint-disable-next-line
   }, [url]);
 
   useEffect(() => {
@@ -58,8 +56,8 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
 
   const handleCommit = () => (audio.muted = false);
 
-  if (!url && Cookies.get("lastPlayed")) {
-    const lastPlay = JSON.parse(Cookies.get("lastPlayed"));
+  if (!url && Musify.getLastPlay()) {
+    const lastPlay = JSON.parse(Musify.getLastPlay());
     url = lastPlay.url;
     artwork = lastPlay.artwork;
     name = lastPlay.name;
@@ -128,6 +126,7 @@ function MediaPlayer({ preview_url: url, artists, name, album }) {
               )}
             </IconButton>
             <Slider
+              className="slider"
               size="small"
               value={progress}
               onChange={handleChange}
