@@ -12,7 +12,7 @@ See live project [here](http://musify-69685.surge.sh/)
 - Material UI
 - Bootstrap
 - OAuth 2.0 
-- Fetch API
+- Spotify API
 
 ## To-do list
 
