@@ -11,52 +11,48 @@ import Musify from "../../utils";
 import "./MediaPlayer.css";
 
 function MediaPlayer({ preview_url: url, artists, name, album }) {
-  const [audio, setAudio] = useState(new Audio());
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const renderCount = useRef(0);
+  const firstRender = useRef(true);
+  const audio = useRef(null);
 
   let artwork = album?.images[0].url;
   let artist = (artists || [])[0]?.name;
 
   useEffect(() => {
-    setAudio(new Audio(url));
-  }, [url]);
-
-  useEffect(() => {
+    audio.current = new Audio(url);
     const handleUpdate = () => {
-      setProgress((audio.currentTime / audio.duration) * 100);
+      setProgress((audio.current.currentTime / audio.current.duration) * 100);
     };
     const handleEnd = () => {
       setPlaying(false);
       setProgress(0);
     };
-    audio.addEventListener("ended", handleEnd);
-    audio.addEventListener("timeupdate", handleUpdate);
-    renderCount.current > 1
-      ? audio.play().then(() => setPlaying(true))
-      : renderCount.current++;
+    audio.current.addEventListener("ended", handleEnd);
+    audio.current.addEventListener("timeupdate", handleUpdate);
+    firstRender.current
+      ? (firstRender.current = false)
+      : audio.current.play().then(() => setPlaying(true));
     return () => {
-      audio.removeEventListener("ended", handleEnd);
-      audio.removeEventListener("timeupdate", handleUpdate);
-      setPlaying(false);
-      audio.pause()
-      
+      audio.current.removeEventListener("ended", handleEnd);
+      audio.current.removeEventListener("timeupdate", handleUpdate);
+      audio.current.pause();
     };
-  }, [audio]);
+  }, [url]);
 
   const handleChange = (event) => {
-    audio.muted = true;
-    audio.currentTime = (audio.duration * event.target.value) / 100;
+    audio.current.muted = true;
+    audio.current.currentTime =
+      (audio.current.duration * event.target.value) / 100;
     setProgress(event.target.value);
   };
 
   const handlePlaying = () => {
-    playing ? audio.pause() : audio.play();
+    playing ? audio.current.pause() : audio.current.play();
     setPlaying(!playing);
   };
 
-  const handleCommit = () => (audio.muted = false);
+  const handleCommit = () => (audio.current.muted = false);
 
   if (!url && Musify.getLastPlay()) {
     const lastPlay = JSON.parse(Musify.getLastPlay());
