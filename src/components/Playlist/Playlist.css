@@ -34,12 +34,9 @@ thead tr:nth-child(1) th {
   object-fit: scale-down;
 }
 
-.track-container {
-  overflow-y: scroll;
-}
-
 @media (min-width: 992px) {
   .track-container {
     max-height: calc(100vh - 450px);
+    overflow-y: scroll;
   }
 }

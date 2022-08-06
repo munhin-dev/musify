@@ -58,7 +58,6 @@ export default function SearchBar({ onTracksChange }) {
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
             <Chip
-              size={"small"}
               label={option.name}
               {...getTagProps({ index })}
               color={option.type === "artist" ? "primary" : "success"}
@@ -104,9 +103,6 @@ export default function SearchBar({ onTracksChange }) {
             },
           },
           maxWidth: 750,
-          maxHeight: 40,
-          overflow: "hidden",
-          overflowY: "scroll",
         }}
       />
       <SearchButton selected={selected} onTracksChange={onTracksChange} />
