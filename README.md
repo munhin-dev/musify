@@ -1,6 +1,6 @@
 # Musify
 
-Musify is a web based app made using React.js to give recommendations from spotify based on user input. The results can be previewed and removed or it can be add as a new playlist into spotify user library.
+Musify is a web based app made using React.js to give recommendations from spotify based on user input. The results will not include the songs that user input, but instead come back with a list of song recommendations that user may be interested in. The results can be previewed and removed or it can be add as a new playlist into spotify user library.
 
 See live project [here](http://musify-69685.surge.sh/)
 
