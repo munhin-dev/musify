@@ -18,3 +18,4 @@ See live project [here](http://musify-69685.surge.sh/)
 
 - To optimize user experience with small screen device.
 - To add option to adjust volume in media player.
+test
