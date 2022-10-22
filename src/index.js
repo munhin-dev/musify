@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./app/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("Test")
 root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
